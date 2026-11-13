@@ -1,0 +1,20 @@
+### The capital of France is
+The capital of France is a city that is known for its beautiful architecture, its rich history, and its many famous landmarks. Paris is a city that is known for its beautiful architecture, its rich history, and its many famous landmarks. Paris is a city that is
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 100.degree. C., and the boiling point of water is about 100.degree. C. at atmospheric pressure. Therefore, when a water-based material is heated, the water boils and the temperature of the water rises. When
+
+
+### def fibonacci(n):
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+
+
+

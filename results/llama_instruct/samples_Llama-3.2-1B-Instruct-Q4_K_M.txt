@@ -1,0 +1,24 @@
+### The capital of France is
+The capital of France is Paris. The capital of France is Paris. The capital of France is Paris. The capital of France is Paris. The capital of France is Paris. The capital of France is Paris. The capital of France is Paris. The capital of France
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 100 degrees Celsius at standard atmospheric pressure. At standard atmospheric pressure, water boils at 100 degrees Celsius. This is a fundamental principle of thermodynamics, and it is widely accepted as a basic fact of the physical world.
+
+However, the
+
+
+### def fibonacci(n):
+def fibonacci(n): 
+    """
+    This function generates the first n Fibonacci numbers.
+    
+    Args:
+    n (int): The number of Fibonacci numbers to generate.
+    
+    Returns:
+    list: A list of the first n Fibonacci numbers.
+    """
+
+
+

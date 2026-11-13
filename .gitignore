@@ -1,0 +1,10 @@
+# build outputs (rebuilt by scripts)
+bonus/kernel/m3bench
+bonus/ggml/ggml_driver
+node_modules/
+__pycache__/
+# transient
+results/hw/.stop_logger
+results/raw/*.time
+results/experiment/*.tmp
+*.data

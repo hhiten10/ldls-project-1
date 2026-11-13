@@ -1,0 +1,19 @@
+model,prompt,peak_rss_kb
+mamba2-1.3b-Q4_K_M,"The capital of France is",1642276
+mamba2-1.3b-Q4_K_M,"Water boils at a temperature of",1642944
+mamba2-1.3b-Q4_K_M,"def fibonacci(n):",1642728
+mamba2-1.3b-Q8_0,"The capital of France is",1646160
+mamba2-1.3b-Q8_0,"Water boils at a temperature of",1646416
+mamba2-1.3b-Q8_0,"def fibonacci(n):",1646340
+mamba2-2.7b-Q4_K_M,"The capital of France is",3212480
+mamba2-2.7b-Q4_K_M,"Water boils at a temperature of",3212988
+mamba2-2.7b-Q4_K_M,"def fibonacci(n):",3212864
+mamba-1.4b-Q4_K_M,"The capital of France is",1518052
+mamba-1.4b-Q4_K_M,"Water boils at a temperature of",1518180
+mamba-1.4b-Q4_K_M,"def fibonacci(n):",1518196
+mamba-1.4b-Q8_0,"The capital of France is",1489944
+mamba-1.4b-Q8_0,"Water boils at a temperature of",1490396
+mamba-1.4b-Q8_0,"def fibonacci(n):",1490412
+Llama-3.2-1B-Q4_K_M,"The capital of France is",1376404
+Llama-3.2-1B-Q4_K_M,"Water boils at a temperature of",1376100
+Llama-3.2-1B-Q4_K_M,"def fibonacci(n):",1376152

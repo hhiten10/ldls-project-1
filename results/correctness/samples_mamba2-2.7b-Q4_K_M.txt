@@ -1,0 +1,20 @@
+### The capital of France is
+The capital of France is the city of Paris. It is the most visited city in the world. It is the most visited city in the world. It is the most visited city in the world. It is the most visited city in the world. It is the
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 212 degrees Fahrenheit, but the boiling point of water varies with the pressure. The boiling point of water at sea level is 212 degrees Fahrenheit, but the boiling point of water at the surface of the Earth is 212.8
+
+
+### def fibonacci(n):
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+
+
+

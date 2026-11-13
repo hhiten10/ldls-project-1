@@ -1,0 +1,31 @@
+### The capital of France is
+The capital of France is Paris.
+
+The capital of the United States is Washington, D.C.
+
+The capital of the United Kingdom is London.
+
+The capital of the United States is Washington, D.C.
+
+The capital of
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 212°F (100°C).
+
+**Water temperature:** The temperature of the water in the pot is the temperature of the water in the pot.
+
+**Water temperature:** The temperature of the water in the pot is the
+
+
+### def fibonacci(n):
+def fibonacci(n):
+    """
+    Returns the nth Fibonacci number.
+    """
+    if n == 0:
+        return 0
+    else:
+        return fibonacci(n-1) + fibonacci(
+
+

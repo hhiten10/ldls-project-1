@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Mamba-2 on a Laptop CPU</title>
+<style>
+  @page { size: A4; margin: 10mm 11mm 10mm 11mm; }
+  :root { --ink:#0b0b0b; --ink2:#52514e; --rule:#c3c2b7; --accent:#256abf; --soft:#f0efec; }
+  body { font: 8.6pt/1.3 "Segoe UI", system-ui, sans-serif; color: var(--ink); background:#fff; margin:0; }
+  figure img.h { max-height: 58mm; width: auto; max-width: 100%; margin: 0 auto; }
+  h1 { font-size: 15pt; margin: 0 0 2pt; }
+  .sub { color: var(--ink2); font-size: 8.8pt; margin-bottom: 6pt; }
+  h2 { font-size: 10pt; margin: 6pt 0 2pt; border-bottom: 1px solid var(--rule); padding-bottom: 1pt; color: var(--accent); }
+  p { margin: 3pt 0; text-align: justify; }
+  table { border-collapse: collapse; width: 100%; font-size: 7.6pt; margin: 2pt 0 3pt; }
+  th, td { border-bottom: 1px solid #e1e0d9; padding: 1.6pt 4pt; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  table.txt th, table.txt td { text-align: left; }
+  th { background: var(--soft); font-weight: 600; }
+  .row { display: flex; gap: 8pt; align-items: flex-start; }
+  .row > * { flex: 1; min-width: 0; }
+  figure { margin: 3pt 0; }
+  figure img { width: 100%; display: block; }
+  figcaption { font-size: 7.8pt; color: var(--ink2); margin-top: 1pt; }
+  .key { background: var(--soft); border-left: 3px solid var(--accent); padding: 3pt 6pt; margin: 4pt 0; }
+  ul { margin: 2pt 0 2pt 14pt; padding: 0; } li { margin: 1pt 0; }
+  .pb { break-before: page; }
+  code { font-size: 8.2pt; }
+  .small { font-size: 8pt; color: var(--ink2); }
+</style></head><body>
+
+<h1>Mamba-2 on a Laptop CPU — and a Mamba-3 MIMO Decode Step on CPU</h1>
+<div class="sub">Project 1, Option 3 (Mamba-2) + Bonus (Mamba-3 MIMO on CPU) · llama.cpp CPU-only, commit 26d52b0 · AMD Ryzen 7 4800H · all numbers mean ± sd of 3 repetitions unless stated · repository: README.md reproduces every number</div>
+
+<h2>1. Hardware and setup</h2>
+<table class="txt">
+<tr><th>Item</th><th>Value</th><th>Item</th><th>Value</th></tr>
+<tr><td>CPU</td><td>Ryzen 7 4800H, Zen 2, 8C/16T, not hybrid</td><td>SIMD</td><td>AVX2 + FMA + F16C, <b>no AVX-512</b></td></tr>
+<tr><td>Caches</td><td>32 KB L1d + 512 KB L2 per core; 2×4 MB L3 (2 CCX)</td><td>Memory</td><td>2×8 GB DDR4-3200 dual channel (51.2 GB/s peak)</td></tr>
+<tr><td>Measured bandwidth (8 thr)</td><td><b>read-only 30.5 GB/s</b>; STREAM copy 27.9, triad 17.8, scale 15.1</td><td>Clock under load</td><td>3.53 GHz mean, p5 3.40 GHz (never below 2.9 base); logged every 10 s on AC (two brief off-AC windows in a later pass → the 2 overlapping runs were redone on AC)</td></tr>
+<tr><td>OS / engine</td><td>Win 11 + WSL2 Ubuntu 24.04, 7 GB visible; GGML_NATIVE, OpenMP</td><td>Threads</td><td>one per physical core (CPUs 0,2,…,14), OpenMP-pinned</td></tr>
+</table>
+<p>Hygiene: charger on, "Turbo" power plan, IDE and browser windows closed (a windowless background Chrome process used ≈ 2 % of one core); every run — benchmark, perplexity, sample generation and profiling — records peak RSS, and every benchmark run records swap activity (zero swap-ins except 1–32 pages ≈ 4–128 KB on 7 of 166 runs, &lt; 0.01 % of runtime; rule in §9). Bandwidth saturates at <b>3–4 threads</b> (read-only 19.1 GB/s at 1 thread, 29.6 at 4, 30.5 at 8). STREAM copy beats triad because glibc <code>memcpy</code> uses non-temporal stores (no write-allocate); read-only is the right ceiling for weight streaming.</p>
+
+<h2>2. Models and correctness</h2>
+<p>No trustworthy Mamba-2 GGUFs exist, so the official <code>state-spaces</code> checkpoints were converted with the pinned llama.cpp (lossless 16-bit intermediate) and quantized per the rules: Q4_K_M everywhere, Q8_0 only ≤ 1.5 B. Mamba-1 1.4B is included to answer the option's question; Llama-3.2-1B (base, converted the same way from Meta's weights) is the dense contrast and the shared reference model.</p>
+<table>
+<tr><th>Model</th><th>Quant</th><th>File</th><th>Peak RSS, GiB (max over runs)</th><th>Wikitext-2 PPL (40×512 tok)</th><th>Greedy sample</th></tr>
+<tr><td>Mamba-2 1.3B</td><td>Q4_K_M / Q8_0</td><td>0.85 / 1.54 GB</td><td>1.72 / 1.72 GB</td><td>11.55 ± 0.31 / 11.10 ± 0.29</td><td>coherent</td></tr>
+<tr><td>Mamba-2 2.7B</td><td>Q4_K_M</td><td>1.64 GB</td><td>3.29 GB</td><td>9.91 ± 0.26</td><td>coherent</td></tr>
+<tr><td>Mamba-1 1.4B</td><td>Q4_K_M / Q8_0</td><td>0.82 / 1.47 GB</td><td>1.57 / 1.54 GB</td><td>11.92 ± 0.32 / 11.42 ± 0.30</td><td>coherent</td></tr>
+<tr><td>Llama-3.2-1B (base)</td><td>Q4_K_M</td><td>0.81 GB</td><td>2.33 GB (16 k ctx)</td><td>10.56 ± 0.28</td><td>coherent</td></tr>
+</table>
+<p class="small">PPL is comparable only across quantizations of one model (tokenizers differ); PPL reproduces to every printed digit on a second pass. All runs stay inside the ≈ 4.5 GB budget (max 3.29 GiB). Mamba RSS is flat in context; Llama's grows 1.26 → 2.33 GiB from 0 to 16 k tokens (KV cache). One violation was found and fixed: sample generation first ran with llama.cpp's default context (Llama-3.2's trained 131 k → 5.25 GiB); re-run with <code>-c 2048</code> (1.31 GiB).</p>
+
+<h2>3. Results: the recurrent state does not grow — the speed does not fall</h2>
+<div class="row">
+<figure><img src="../plots/decode_vs_context.png"><figcaption>Fig 1. Decode tg128 after d tokens of context (8 thr). Mamba lines are flat to 32 k; Llama falls ≈ 30 → 3.7 tok/s by 16 k.</figcaption></figure>
+<figure><img src="../plots/prefill_vs_prompt.png"><figcaption>Fig 2. Prefill speed vs prompt length (ubatch 512, 8 thr). Mamba is flat to 32 k; Llama halves by 16 k.</figcaption></figure>
+</div>
+<table>
+<tr><th>tokens/s (8 thr)</th><th>pp512</th><th>pp4096</th><th>pp max</th><th>tg d=0</th><th>tg d=1k</th><th>tg d=8k</th><th>tg d=max</th></tr>
+<tr><td>Mamba-2 1.3B Q4_K_M</td><td>122.4 ± 1.8</td><td>125.2 ± 7.3</td><td>127.8 ± 0.5 (32k)</td><td>18.2 ± 1.5</td><td>18.2 ± 1.6</td><td>19.1 ± 0.2</td><td>18.1 ± 2.0 (32k)</td></tr>
+<tr><td>Mamba-2 1.3B Q8_0</td><td>90.4 ± 2.9</td><td>92.1 ± 1.3</td><td>91.9 ± 0.2</td><td>13.1 ± 1.0</td><td>13.1 ± 1.1</td><td>13.2 ± 1.4</td><td>13.1 ± 0.9</td></tr>
+<tr><td>Mamba-2 2.7B Q4_K_M</td><td>63.9 ± 2.0</td><td>64.7 ± 0.2</td><td>64.5 ± 0.2</td><td>10.0 ± 0.5</td><td>10.1 ± 0.5</td><td>10.1 ± 0.5</td><td>10.1 ± 0.6</td></tr>
+<tr><td>Mamba-1 1.4B Q4_K_M</td><td>90.9 ± 9.6</td><td>92.4 ± 1.4</td><td>92.7 ± 0.3</td><td>23.2 ± 2.0</td><td>25.8 ± 3.0</td><td>25.5 ± 3.1</td><td>24.6 ± 4.2</td></tr>
+<tr><td>Mamba-1 1.4B Q8_0</td><td>67.6 ± 6.0</td><td>70.1 ± 0.6</td><td>71.5 ± 0.2</td><td>17.7 ± 0.0</td><td>16.7 ± 1.9</td><td>15.7 ± 1.8</td><td>16.1 ± 1.9</td></tr>
+<tr><td>Llama-3.2 1B Q4_K_M</td><td>205.4 ± 3.1</td><td>157.2 ± 1.4</td><td>90.2 ± 0.3 (16k)</td><td>29.5 ± 6.4*</td><td>28.3 ± 1.2</td><td>8.3 ± 0.4</td><td>3.72 ± 0.01 (16k)</td></tr>
+</table>
+<p class="small">* bimodal: in two separate 3-rep runs one repetition fell to ≈ 22 tok/s (22.7, 31.9, 31.5 and 33.2, 22.0, 33.2); the identical test in the thread sweep gives 34.4 ± 0.2, and the profiling build 34.3. We report the recorded mean and show the tight run beside it.</p>
+<table>
+<tr><th>threads × context (decode tg128, tok/s)</th><th>1 thr, 1k</th><th>1 thr, 8k</th><th>4 thr, 1k</th><th>4 thr, 8k</th><th>8 thr, 1k</th><th>8 thr, 8k</th></tr>
+<tr><td>Mamba-2 1.3B Q4_K_M</td><td>10.0 ± 0.8</td><td>10.4 ± 0.0</td><td>18.3 ± 0.1</td><td>17.1 ± 2.0</td><td>18.2 ± 1.6</td><td>19.1 ± 0.2</td></tr>
+<tr><td>Mamba-2 1.3B Q8_0</td><td>7.9 ± 0.5</td><td>7.6 ± 0.5</td><td>13.0 ± 1.3</td><td>12.9 ± 1.2</td><td>13.1 ± 1.1</td><td>13.2 ± 1.4</td></tr>
+<tr><td>Mamba-2 2.7B Q4_K_M</td><td>5.6 ± 0.3</td><td>5.6 ± 0.3</td><td>9.9 ± 1.0</td><td>9.8 ± 1.2</td><td>10.1 ± 0.5</td><td>10.1 ± 0.5</td></tr>
+<tr><td>Mamba-1 1.4B Q4_K_M</td><td>11.8 ± 1.1</td><td>12.0 ± 1.1</td><td>25.9 ± 0.1</td><td>25.5 ± 0.1</td><td>25.8 ± 3.0</td><td>25.5 ± 3.1</td></tr>
+<tr><td>Mamba-1 1.4B Q8_0</td><td>8.1 ± 0.6</td><td>8.5 ± 0.6</td><td>17.1 ± 0.1</td><td>15.9 ± 2.0</td><td>16.7 ± 1.9</td><td>15.7 ± 1.8</td></tr>
+<tr><td>Llama-3.2 1B Q4_K_M</td><td>12.3 ± 1.2</td><td><b>2.1 ± 0.0</b></td><td>27.6 ± 0.3</td><td>5.1 ± 0.2</td><td>28.3 ± 1.2</td><td>8.3 ± 0.4</td></tr>
+</table>
+<p class="small">Cross sweep (spec step 5: context × threads × quantization). For every Mamba model and quantization, context has no effect at any thread count and decode saturates by 4 threads; Llama at 8 k context keeps scaling with threads (2.1 → 5.1 → 8.3 tok/s) because attention over the KV cache is compute-bound. Prefill pp4096 × threads: Mamba-2 1.3B 32.0 / 88.2 / 125.2, Llama 36.6 / 109.0 / 157.2 tok/s at 1 / 4 / 8 threads.</p>
+<p>Two observations frame the rest of the report. (1) <b>Mamba-1 decodes faster than Mamba-2</b> at matched size although its weights are slightly larger (817 vs 787 MB): Mamba-2's per-token state traffic is 206 MB (48 layers × 64 heads × 64 × 128 fp32, read + written) versus 30 MB for Mamba-1 (d_state 16). (2) Decode repetitions spread by up to ± 17 % (Mamba-1 at 32 k) while prefill at long prompts is tight (± 0.2–0.5 %); decode tokens last only 30–100 ms each, so host-side jitter (WSL2 on Windows) and barrier timing show up in them. Means are reported as measured; differences smaller than the spreads are not interpreted.</p>
+
+<div class="row">
+<figure style="flex:1.35"><img class="h" src="../plots/thread_scaling.png"><figcaption>Fig 3. Thread scaling. Prefill keeps scaling (compute-bound: Mamba-2 1.3B 31.5 → 132.5 tok/s, 4.2× on 8 cores); decode flattens at 3–4 threads exactly where read bandwidth saturates (10.7 → 18.2 tok/s, 1.7×).</figcaption></figure>
+</div>
+
+<h2>4. Profiling: where the time goes</h2>
+<p>Three independent views: (i) an opt-in per-operator wall-clock profiler patched into ggml's graph loop (<code>docs/ggml-op-profile.patch</code>, separate build; counts compute and barrier wait per op), (ii) <code>perf record</code> (cycles:u) on the unmodified build, (iii) <code>perf stat</code> hardware counters (WSL2 exposes the PMU). Decode = tg256, prefill = pp512 and pp4096, 3 repetitions each.</p>
+<div class="row">
+<figure style="flex:1.1"><img class="h" style="max-height:78mm" src="../plots/op_breakdown.png"><figcaption>Fig 4. Share of wall time per operator group (incl. barrier waits). Llama decode@8k is estimated by subtracting a separately profiled 8 k prefill.</figcaption></figure>
+<div>
+<table class="txt">
+<tr><th>Top 3 ops</th><th>Decode</th><th>Prefill 4096</th></tr>
+<tr><td>Mamba-2 1.3B</td><td>MUL_MAT 74 %, SSM_SCAN 13 %, CPY 4 %</td><td>MUL_MAT 73 %, SSM_SCAN 9 %, SSM_CONV 4 %</td></tr>
+<tr><td>Mamba-2 2.7B</td><td>MUL_MAT 79 %, SSM_SCAN 12 %, CPY 3 %</td><td>MUL_MAT 77 %, SSM_SCAN 7 %, RMS_NORM 3 %</td></tr>
+<tr><td>Mamba-1 1.4B</td><td>MUL_MAT 82 %, SSM_SCAN 9 %, ADD 2 %</td><td>MUL_MAT 57 %, <b>SSM_SCAN 33 %</b>, SSM_CONV 3 %</td></tr>
+<tr><td>Llama 1B</td><td>MUL_MAT 94 %, FLASH_ATTN 3 %, ADD 1 %</td><td>MUL_MAT 72 %, FLASH_ATTN 25 %, SWIGLU 1 %</td></tr>
+<tr><td>Llama 1B @ 8 k</td><td><b>FLASH_ATTN 76 %</b>, MUL_MAT 23 %</td><td>—</td></tr>
+</table>
+<p class="small">perf agrees: the hottest symbol in Mamba-2 decode is <code>ggml_gemv_q4_K_8x8_q8_K</code> (58 % of cycles, the repacked Q4_K GEMV), then <code>ggml_compute_forward_ssm_scan</code> (9 %); by library, <b>22.8 % of all cycles are in libgomp</b> — threads spinning in OpenMP barriers. Peak RSS was logged for all 70 profiling runs (max 3.13 GiB).</p>
+<div class="key"><b>Option 3 question — Mamba-2 vs Mamba-1 scan on CPU.</b> SSM_SCAN time per token:
+prefill <b>0.70 ms (Mamba-2) vs 3.49 ms (Mamba-1)</b>; decode <b>8.5 ms vs 3.5 ms</b>.
+Per state element Mamba-2's scan is ~40× cheaper in prefill: Mamba-1 needs <code>exp(Δt·A[d,n])</code> for every element (A is a d_inner×16 matrix), Mamba-2's A is one scalar per head, leaving pure FMAs, and across a 512-token ubatch the state stays in cache. In decode the order flips: Mamba-2 must stream its 8× larger state from DRAM every token (8.5 ms ≈ 24 GB/s, near the bandwidth roof), while Mamba-1's 30 MB state is small and its scan is bounded by the per-element <code>exp</code>.</div>
+</div></div>
+
+<h2>5. Roofline: predicted vs measured decode, and the gap</h2>
+<p>Prediction = measured read-only bandwidth ÷ bytes read per token. Bytes are counted from each GGUF: every weight tensor once (batch-1 GEMV, no reuse; tied output embeddings counted in full), plus recurrent state read + written in fp32, plus the f16 KV cache for Llama. Mamba-2 1.3B: 787 MB weights + 206 MB state = 993 MB → <b>30.7 tok/s predicted, 18.2 measured (59 %)</b>.</p>
+<div class="row">
+<figure><img src="../plots/predicted_vs_measured.png"><figcaption>Fig 5. Predicted vs measured decode (context 0, 8 thr). Llama's 77 % uses the bimodal mean (29.5 tok/s); its tight runs (34.4 tok/s) are 90 %.</figcaption></figure>
+<div>
+<table>
+<tr><th>decode, ctx 0</th><th>Llama 1B</th><th>Mamba-1 1.4B</th><th>Mamba-2 2.7B</th><th>Mamba-2 1.3B</th></tr>
+<tr><td>% of read-BW prediction (llama-bench)</td><td><b>77 % (90 %*)</b></td><td>65 %</td><td>62 %</td><td><b>59 %</b></td></tr>
+<tr><td>% of prediction (profile build)</td><td>90 %</td><td>74 %</td><td>62 %</td><td>51 %</td></tr>
+<tr><td>MUL_MAT effective BW</td><td>29.1 GB/s</td><td>26.6</td><td>19.5</td><td>16.6</td></tr>
+<tr><td>state ÷ weight bytes</td><td>0</td><td>0.04</td><td>0.22</td><td>0.26</td></tr>
+<tr><td>graph nodes / token</td><td>277</td><td>1205</td><td>1541</td><td>1157</td></tr>
+<tr><td>barrier-wait share</td><td>8 %</td><td>14 %</td><td>13 %</td><td>17 %</td></tr>
+<tr><td>IPC decode / prefill</td><td>0.59 / 1.88</td><td>0.75 / 1.85</td><td>0.42 / 1.68</td><td>0.39 / 1.61</td></tr>
+</table>
+<p class="small">Row 1 from the benchmark runs (as Fig 5; * = Llama's tight runs); rows 2–6 from the per-op profile build; IPC from perf stat.</p>
+</div></div>
+<p><b>Explaining the gap.</b> (1) <i>Memory-bound, not compute-bound</i>: decode IPC is 0.4–0.8 versus 1.6–1.9 in prefill, and decode speed stops scaling exactly where STREAM saturates (Fig 3). (2) <i>The quantized GEMV is not the problem</i>: Llama's Q4_K matmuls stream at 29.1 GB/s, 95 % of measured read bandwidth, on the same machine. (3) <i>Recurrent-state traffic slows the weight stream</i>: MUL_MAT's effective bandwidth drops monotonically with the state:weight byte ratio (29.1 → 26.6 → 19.5 → 16.6 GB/s; same order in both profiling passes). llama.cpp updates the state out of place (<code>ssm_scan</code> writes a new 2 MB buffer, then <code>cpy</code> moves it into the cache — code-verified), so dirty lines are written back during the next layers' weight-streaming GEMVs, which absorb the cost. (4) <i>Synchronization</i>: Mamba-2 runs ~1150 graph nodes per token (Llama 277), each ending in a thread barrier: 17 % of wall time is barrier waiting. (5) Thermal throttling is ruled out by the frequency log; cache misses rise from 4 % (prefill) to 8 % of references (decode). For Llama at long context the gap is different: at 8 k the KV cache adds only ~270 MB (bandwidth would predict ~29 tok/s) yet decode is 8.3 tok/s — attention compute (FLASH_ATTN_EXT, 76 % of time) takes over, which is also why Llama@8k is the one decode case that keeps scaling with threads (cross table); attention starts to dominate between 1 k and 8 k tokens.</p>
+
+<h2>6. Own experiment: one tensor's quantization type (pre-registered)</h2>
+<p>Changed exactly one thing: the type of Mamba-2 1.3B's <code>ssm_in</code> (55.7 % of bytes/token), all variants requantized identically from the same Q8_0. Hypotheses and pass bars were written before running (<code>docs/experiment_preregistration.md</code>). Prediction: tg ∝ 1/bytes, calibrated on the Q4_K baseline (BW_eff = 18.4 GB/s).</p>
+<table>
+<tr><th>ssm_in</th><th>bytes/token</th><th>predicted tg128</th><th>measured tg128</th><th>error</th><th>pp512</th><th>PPL</th></tr>
+<tr><td>Q4_0</td><td>993 MB</td><td>18.53</td><td>17.24 ± 0.43</td><td>−7.0 %</td><td>126.1 ± 0.8</td><td>11.64 ± 0.31</td></tr>
+<tr><td>Q4_K (baseline)</td><td>993 MB</td><td>—</td><td>18.53 ± 0.42</td><td>—</td><td>119.8 ± 23.0</td><td>11.56 ± 0.31</td></tr>
+<tr><td>Q5_K</td><td>1098 MB</td><td>16.76</td><td>16.62 ± 0.47</td><td>−0.8 %</td><td>121.5 ± 20.3</td><td>11.49 ± 0.31</td></tr>
+<tr><td>Q6_K</td><td>1209 MB</td><td>15.22</td><td>14.94 ± 1.23</td><td>−1.8 %</td><td>133.9 ± 1.2</td><td>11.48 ± 0.31</td></tr>
+<tr><td>Q8_0</td><td>1412 MB</td><td>13.03</td><td>14.26 ± 0.02</td><td>+9.4 %</td><td>105.9 ± 2.6</td><td>11.45 ± 0.30</td></tr>
+</table>
+<p><b>H1 (bytes predict decode within ±10 %): pass.</b> <b>H2 (same bytes ⇒ &lt; 5 % difference, Q4_0 vs Q4_K): fail</b> — Q4_0 is 7 % slower at identical bytes; the repacked Q4_K 8×8 GEMV streams better. Q8_0 beating its prediction has two explanations we cannot separate (simpler kernel, or per-token costs that do not scale with <code>ssm_in</code> bytes — barriers and state traffic). <b>H3 (quality): monotone but not resolved</b> — PPL falls 11.64 → 11.45, but every step is below the ±0.30 error. Conclusion: Q4_K is the right type for <code>ssm_in</code> on this machine.</p>
+
+<h2>7. Shared reference run on PARAM Rudra</h2>
+<p>Llama-3.2-1B Q4_K_M, pp512 + tg128, same llama.cpp commit and byte-identical model (SHA-256 checked), CPU partition, Intel Xeon Gold 6240R (Cascade Lake, AVX-512). The account's QoS allows <b>4 CPUs per job</b> (48-core requests pend with <code>QOSMaxCpuPerUserLimit</code>), so the run uses 4 cores of a shared node.</p>
+<table>
+<tr><th>4 threads</th><th>pp512 (tok/s)</th><th>tg128 (tok/s)</th><th>peak RSS</th></tr>
+<tr><td>Rudra job 186433</td><td>298.5 ± 0.6</td><td>39.27 ± 0.02</td><td>1.32 GiB</td></tr>
+<tr><td>Rudra job 186434</td><td>300.2 ± 0.8</td><td>39.30 ± 0.04</td><td>1.32 GiB</td></tr>
+<tr><td>this laptop (4 threads, same test)</td><td>152.3 ± 0.7</td><td>31.7 ± 0.9</td><td>1.26–1.32 GiB</td></tr>
+</table>
+<p>Base Llama-3.2-1B, converted on the laptop and copied to Rudra (SHA-256 identical). The two jobs agree within 0.6 %; an earlier pair run with the Instruct GGUF (archived, <code>results/rudra/instruct/</code>) gave 298.2 / 291.8 and 40.71 / 38.71 tok/s — the same architecture and size, so within the 3–5 % job-to-job noise of a shared node. With 4 cores, Rudra's prefill is 2.0× the laptop (native AVX-512 build: twice the vector width for the compute-bound GEMMs) while decode is only 1.2× (both bandwidth-limited; a 4-core slice of a 6-channel socket vs the laptop's whole dual-channel bus).</p>
+
+<h2>8. Bonus: a Mamba-3 decode step on CPU — does MIMO pay off?</h2>
+<p>The official <code>Mamba3.step</code> runs only on CUDA. We assembled a CPU reference from the repo's own pure-PyTorch references and found that <b>pretrained checkpoints are public</b> (<code>state-spaces/mamba3-{siso,mimo}-1.5b</code>), so all tests use real weights and real hidden states (wikitext through layers 0–11). The update: α = exp(AΔt), β = (1−λ)Δtα, γ = λΔt (trapezoidal rule), data-dependent rotation of B and C (the complex state), and S ← αS + Σ<sub>r</sub>γ(x·w<sub>r</sub>)⊗B<sub>r</sub> + Σ<sub>r</sub>β(x<sub>prev</sub>·w<sub>r</sub>)⊗B<sub>prev,r</sub>, y<sub>r</sub> = S·C<sub>r</sub> + Dx<sub>r</sub>. FLOPs per state element: Mamba-2 5, SISO 7, <b>MIMO-4 25</b>; bytes per element (fp32 state in + out) identical.</p>
+<div class="row">
+<div>
+<table>
+<tr><th>Correctness (bars fixed in advance)</th><th>Result</th></tr>
+<tr><td>our step vs upstream step ref (f64), SISO / MIMO</td><td>2.2e-16 / 2.2e-16</td></tr>
+<tr><td>vs upstream chunked forward ref (independent form)</td><td>1.3e-7</td></tr>
+<tr><td>full 1.5B model decoded token-by-token on CPU, PPL</td><td>SISO 12.23, MIMO 11.79</td></tr>
+<tr><td>MIMO with interleaved instead of halved rotation</td><td>PPL 24.7 → layout settled</td></tr>
+<tr><td><b>AVX2 SISO / MIMO kernel, 1000 real steps</b> (bar 1e-4)</td><td><b>1.45e-5 / 1.60e-5</b> = PyTorch fp32 floor</td></tr>
+<tr><td>Mamba-3 as ggml custom op vs direct</td><td>bit-exact</td></tr>
+</table>
+<table>
+<tr><th>µs / layer step (2 MB state)</th><th>M2</th><th>SISO</th><th>MIMO</th><th>MIMO/SISO</th></tr>
+<tr><td>cache-hot, 1 thr</td><td>52.4</td><td>144.7</td><td>423.4</td><td><b>2.93×</b></td></tr>
+<tr><td>cache-hot, 8 thr</td><td>16.7</td><td>37.1</td><td>110.5</td><td><b>2.98×</b></td></tr>
+<tr><td>DRAM-cold (24 layers), 1 thr</td><td>337.2</td><td>420.2</td><td>587.3</td><td><b>1.40×</b></td></tr>
+<tr><td>DRAM-cold (24 layers), 8 thr</td><td>250.7</td><td>267.8</td><td>319.5</td><td><b>1.19×</b></td></tr>
+</table>
+</div>
+<figure><img src="../plots/bonus_step_time.png"><figcaption>Fig 6. Decode-step time at equal state size. IPC (1 thr) hot → cold: Mamba-2 2.03 → 0.32, SISO 1.94 → 0.67, MIMO 1.91 → 1.40.</figcaption></figure>
+</div>
+<div class="key"><b>Answer.</b> MIMO-4 adds 3.6× the FLOPs of SISO. When the 2 MB state is cache-resident the step is compute-bound and MIMO costs the full <b>~3×</b>. In real decoding every layer's state is evicted between tokens; the step is then memory-bound (SISO at IPC 0.67, on the read-modify-write roof of ~16 GB/s) and MIMO's extra arithmetic hides in the memory stalls: <b>+19 % per step at 8 threads</b> (+40 % at 1 thread). Per token of the 24-layer 1.5B model that is ≈ 6.4 → 7.7 ms of SSM work next to ≈ 30 ms of weight streaming, an estimated <b>3–4 % slower token for a model with lower perplexity</b> (11.79 vs 12.23). So on this CPU MIMO's compute comes at little cost — but the headroom is smaller than on a GPU (Zen 2 balance ≈ 20 FLOP/B), and a cache-resident state or higher rank would make it compute-bound. (Cold numbers are back-to-back microbenchmarks, an upper bound on per-step cost; the ratio is measured under identical conditions.)</div>
+<div class="row">
+<figure><img src="../plots/bonus_roofline.png"><figcaption>Fig 7. Kernel roofline. DRAM-cold Mamba-2 and SISO sit on the read+write bandwidth roof; MIMO (3.2 FLOP/B) moves right, still under the roof; cache-hot points lie above it (served from L2/L3).</figcaption></figure>
+<figure><img src="../plots/bonus_errors.png"><figcaption>Fig 8. Per-step error of the AVX2 kernels over 1000 real decode steps, against the float64 reference. The kernels track PyTorch's own float32 error exactly, 7× inside the pre-set 1e-4 bar.</figcaption></figure>
+</div>
+
+<h2>9. What we learned</h2>
+<ul>
+<li>On a laptop CPU, decode speed is set by <b>bytes per token</b>, and for Mamba-2 those bytes include a 206 MB recurrent state that is as costly as a fifth of the weights — the price of d_state = 128.</li>
+<li>Mamba's selling point is real on CPU: flat decode speed and flat memory from 0 to 32 k tokens, while a 1B transformer loses ≈ 87–89 % of its decode speed by 16 k.</li>
+<li>Mamba-2's scan design (scalar A per head) makes prefill scans 5× cheaper than Mamba-1's; the same large state makes decode scans more expensive.</li>
+<li>Small-op, barrier-heavy graphs cost 13–17 % on 8 cores; for Mamba, fewer threads lose nothing in decode at any context (bandwidth saturates at 3–4 cores).</li>
+<li>Methodology mattered: two scripted failures (a retry bug, a SIGPIPE), one swap-guard rule change (any swap-in → &gt; 256 pages, stated post hoc; raw counts kept), a sample-generation context that broke the memory rule, two runs redone after brief off-AC windows, and the switch from Llama-Instruct to base are all documented in the repository with the superseded data kept.</li>
+</ul>
+</body></html>

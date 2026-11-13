@@ -1,0 +1,28 @@
+### The capital of France is
+The capital of France is Paris.
+
+The capital of the United States is Washington, D.C.
+
+The capital of the United Kingdom is London.
+
+The capital of the United States is Washington, D.C.
+
+The capital of
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 212° F. (100° C.) and pressure of 1.013 pounds per square inch (psi). The boiling point of water is the temperature at which the vapor pressure of water is equal to the atmospheric pressure. The vapor pressure
+
+
+### def fibonacci(n):
+def fibonacci(n):
+    if n == 0:
+        return 0
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+
+A
+
+

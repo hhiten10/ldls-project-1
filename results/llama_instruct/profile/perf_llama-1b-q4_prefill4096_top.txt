@@ -1,0 +1,40 @@
+    53.55%  [.] ggml_gemm_q4_K_8x8_q8_K
+    19.49%  [.] ggml_compute_forward_flash_attn_ext_tiled(ggml_compute_params const*, ggml_tensor*, int, int)
+    10.95%  [.] 0x00000000000258a2
+     7.14%  [.] void tiled_run_microtile_avx2<16, false, 32, 1, true>(tiled_tile_src0 const&, tiled_tile_src1 const&, int, int, int, int, float*, int) [clone .constprop.0]
+     2.18%  [.] ggml_vec_soft_max_f32
+     1.51%  [.] ggml_cpu_fp16_to_fp32
+     1.01%  [.] ggml_vec_swiglu_f32
+     0.71%  [.] ggml_quantize_mat_q8_K_4x8
+     0.47%  [.] quantize_row_q8_K_ref
+     0.36%  [.] tiled_unpack_src0(block_q6_K const*, long, int, tiled_tile_src0*, int) [clone .part.0] [clone .constprop.0]
+     0.34%  [.] ggml_compute_forward_rms_norm_mul_fused
+     0.28%  [.] tiled_unpack_src1_q8_K(block_q8_K const* const*, int, tiled_tile_src1*, int, int) [clone .constprop.0]
+     0.25%  [.] void tiled_repack_src0<16>(tiled_tile_src0*, int, int, int, bool)
+     0.23%  [.] ggml_compute_forward_add_non_quantized
+     0.15%  [.] void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)
+     0.15%  [.] 0x00000000000258a6
+     0.12%  [.] 0x00000000000256c2
+     0.09%  [.] 0x0000000000189804
+     0.08%  [k] 0xffffffffb2201a60
+     0.07%  [.] 0x000000000018980e
+     0.07%  [k] 0xffffffffb2201a00
+     0.06%  [.] ggml_vec_dot_q6_K_q8_K
+     0.05%  [.] tiled_store_window(float const*, int, int, int, float*, unsigned long) [clone .constprop.0]
+     0.05%  [.] tiled_repack_src1(tiled_tile_src1*, int, int, bool)
+     0.05%  [.] repack_q4_K_to_q4_K_8_bl(ggml_tensor*, int, void const*, unsigned long)
+     0.04%  [.] 0x0000000000188d05
+     0.03%  [.] fmaxf32
+     0.03%  [.] ggml_cpu_fp32_to_fp16
+     0.02%  [.] 0x0000000000189809
+     0.02%  [.] 0x0000000000188e05
+     0.02%  [.] 0x0000000000189813
+     0.02%  [.] void ggml_compute_forward_mul_mat_tiled_one_chunk<block_q6_K, 16, false, 32, true>(ggml_compute_params const*, ggml_tensor*, long, long, long, long, tiled_ws*)
+     0.02%  [.] ggml_fp16_to_fp32
+     0.02%  [.] std::_Hashtable<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::pair<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const, int>, std::allocator<std::pair<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const, int> >, std::__detail::_Select1st, std::equal_to<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, llama_vocab::impl::pair_hash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, unsigned long) const
+     0.01%  [.] 0x0000000000188e74
+     0.01%  [.] ggml_graph_compute_thread.isra.0
+     0.01%  [.] ggml_vec_soft_max_f32@plt
+     0.01%  [.] ggml_threadpool_chunk_add
+     0.01%  [.] dequantize_row_q6_K
+     0.01%  [.] ggml::cpu::repack::tensor_traits<block_q4_K, 8l, 8l, (ggml_type)15>::compute_forward(ggml_compute_params*, ggml_tensor*)

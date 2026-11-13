@@ -1,0 +1,21 @@
+### The capital of France is
+The capital of France is Paris. It is the most visited city in the world. It is the most visited city in the world. It is the most visited city in the world. It is the most visited city in the world. It is the most visited city
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 100 degrees Celsius. What is the temperature of the water in degrees Celsius if the temperature of the water is 20 degrees Celsius?
+The temperature of the water is 20 degrees Celsius. The temperature of the water is 20 degrees Celsius
+
+
+### def fibonacci(n):
+def fibonacci(n): 
+    """Return the nth Fibonacci number. 
+    >>> fibonacci(10) 
+    55 
+    >>> fibonacci(20) 
+    6765 
+    >>> fibonacci(30) 
+    12586269025 
+   
+
+

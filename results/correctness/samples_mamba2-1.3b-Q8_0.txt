@@ -1,0 +1,24 @@
+### The capital of France is
+The capital of France is a city of contrasts. It is a city of the past, a city of the present, and a city of the future. It is a city of the past, because it is the capital of France, and it is a city of
+
+
+### Water boils at a temperature of
+Water boils at a temperature of 212°F (100°C). If you put a cup of water in a pan of boiling water, the water will boil away.
+
+The boiling point of water is the temperature at which it will boil away.
+
+The
+
+
+### def fibonacci(n):
+def fibonacci(n):
+    if n == 0:
+        return 0
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+ [end of text]
+
+
+
