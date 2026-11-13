@@ -1,0 +1,5 @@
+model,ms_per_token,ms_sd,ideal_ms_at_readBW,achieved_frac,mulmat_ms,mulmat_barrier_ms,mulmat_GBs,scan_ms,attn_ms,other_ops_ms,barrier_total_ms,barrier_share,graph_nodes_per_token,weights_MB,state_MB,ipc_decode,ipc_prefill,cache_miss_ratio_decode,cache_miss_ratio_prefill
+m2-1.3b-q4,63.86,2.64,32.58,0.51,47.39,4.42,16.6,8.52,0.0,7.95,10.91,0.171,1157,787.1,206.34,0.39,1.61,0.078,0.042
+m2-2.7b-q4,100.84,0.37,62.48,0.62,80.05,6.1,19.5,11.87,0.0,8.92,12.68,0.126,1541,1561.1,343.8,0.42,1.68,0.064,0.04
+m1-1.4b-q4,37.51,0.56,27.79,0.741,30.67,2.59,26.6,3.52,0.0,3.31,5.05,0.135,1205,817.4,29.88,0.75,1.85,0.055,0.054
+llama-1b-q4,29.17,0.14,26.23,0.899,27.49,1.95,29.1,0.0,1.1,0.59,2.41,0.083,277,799.9,0.0,0.59,1.88,0.057,0.053

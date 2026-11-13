@@ -1,0 +1,11 @@
+    83.23%  libggml-cpu.so.0.29.0   
+    14.43%  libgomp.so.1.0.0        
+     1.80%  libc.so.6               
+     0.25%  [unknown]               
+     0.17%  libm.so.6               
+     0.05%  libggml-base.so.0.29.0  
+     0.05%  libllama.so.0.9.0       
+     0.01%  libstdc++.so.6.0.33     
+     0.01%  libllama-bench-impl.so  
+     0.01%  ld-linux-x86-64.so.2    
+     0.00%  libllama-common.so.0.9.0

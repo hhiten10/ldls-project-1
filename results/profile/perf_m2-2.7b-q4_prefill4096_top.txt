@@ -1,0 +1,40 @@
+    68.33%  [.] ggml_gemm_q4_K_8x8_q8_K
+    13.21%  [.] 0x00000000000258a2
+     6.14%  [.] ggml_compute_forward_ssm_scan
+     2.52%  [.] ggml_compute_forward_ssm_conv
+     1.67%  [.] ggml_compute_forward_add_non_quantized
+     1.54%  [.] ggml_concat_copy_rows(char*, unsigned long, ggml_tensor const*, char const*, unsigned long, long, long)
+     1.36%  [.] ggml_vec_swiglu_f32
+     1.07%  [.] ggml_compute_forward_mul
+     0.75%  [.] ggml_compute_forward_rms_norm_mul_fused
+     0.71%  [.] ggml_quantize_mat_q8_K_4x8
+     0.61%  [.] ggml_vec_silu_f32
+     0.33%  [.] 0x0000000000188e5b
+     0.22%  [.] 0x0000000000188e74
+     0.18%  [.] 0x00000000000258a6
+     0.18%  [.] 0x0000000000188d05
+     0.14%  [.] 0x0000000000188e6e
+     0.09%  [k] 0xffffffffad201a60
+     0.08%  [.] ggml_compute_forward_dup_bytes(ggml_compute_params const*, ggml_tensor*)
+     0.08%  [.] 0x0000000000188e7a
+     0.07%  [.] 0x0000000000188e05
+     0.05%  [.] repack_q4_K_to_q4_K_8_bl(ggml_tensor*, int, void const*, unsigned long)
+     0.04%  [.] 0x0000000000188e9f
+     0.03%  [.] 0x0000000000188f40
+     0.03%  [.] ggml_compute_forward_glu
+     0.03%  [.] 0x0000000000188ea5
+     0.03%  [.] 0x0000000000188f24
+     0.03%  [.] 0x0000000000188f4a
+     0.03%  [.] 0x00000000000256c2
+     0.03%  [.] 0x0000000000188e8f
+     0.03%  [.] 0x0000000000188e99
+     0.02%  [.] ggml_graph_compute_thread.isra.0
+     0.02%  [.] 0x000000000007dca9
+     0.02%  [.] 0x0000000000188f2e
+     0.02%  [.] 0x0000000000188cf0
+     0.02%  [.] 0x000000000007dccd
+     0.01%  [.] 0x000000000007deb9
+     0.01%  [.] ggml_vec_dot_q6_K_q8_K
+     0.01%  [.] 0x0000000000188e0b
+     0.01%  [.] 0x000000000007dc9d
+     0.01%  [.] ggml::cpu::repack::tensor_traits<block_q4_K, 8l, 8l, (ggml_type)15>::compute_forward(ggml_compute_params*, ggml_tensor*)

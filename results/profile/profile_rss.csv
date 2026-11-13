@@ -1,0 +1,71 @@
+tag,phase,run,peak_rss_kb
+m2-1.3b-q4,decode,opprofile_r1,1637768
+m2-1.3b-q4,decode,opprofile_r2,1639304
+m2-1.3b-q4,decode,opprofile_r3,1639480
+m2-1.3b-q4,decode,perf_record(incl. perf),1639384
+m2-1.3b-q4,decode,perf_stat,1639520
+m2-1.3b-q4,prefill512,opprofile_r1,1696032
+m2-1.3b-q4,prefill512,opprofile_r2,1696048
+m2-1.3b-q4,prefill512,opprofile_r3,1696288
+m2-1.3b-q4,prefill512,perf_record(incl. perf),1696424
+m2-1.3b-q4,prefill512,perf_stat,1696224
+m2-1.3b-q4,prefill4096,opprofile_r1,1698680
+m2-1.3b-q4,prefill4096,opprofile_r2,1698904
+m2-1.3b-q4,prefill4096,opprofile_r3,1698860
+m2-1.3b-q4,prefill4096,perf_record(incl. perf),1698980
+m2-1.3b-q4,prefill4096,perf_stat,1698880
+m2-2.7b-q4,decode,opprofile_r1,3208828
+m2-2.7b-q4,decode,opprofile_r2,3208792
+m2-2.7b-q4,decode,opprofile_r3,3208820
+m2-2.7b-q4,decode,perf_record(incl. perf),3209020
+m2-2.7b-q4,decode,perf_stat,3209152
+m2-2.7b-q4,prefill512,opprofile_r1,3279444
+m2-2.7b-q4,prefill512,opprofile_r2,3280000
+m2-2.7b-q4,prefill512,opprofile_r3,3279988
+m2-2.7b-q4,prefill512,perf_record(incl. perf),3280032
+m2-2.7b-q4,prefill512,perf_stat,3280012
+m2-2.7b-q4,prefill4096,opprofile_r1,3282500
+m2-2.7b-q4,prefill4096,opprofile_r2,3282984
+m2-2.7b-q4,prefill4096,opprofile_r3,3282812
+m2-2.7b-q4,prefill4096,perf_record(incl. perf),3283112
+m2-2.7b-q4,prefill4096,perf_stat,3282924
+m1-1.4b-q4,decode,opprofile_r1,1514944
+m1-1.4b-q4,decode,opprofile_r2,1514920
+m1-1.4b-q4,decode,opprofile_r3,1514856
+m1-1.4b-q4,decode,perf_record(incl. perf),1515176
+m1-1.4b-q4,decode,perf_stat,1515124
+m1-1.4b-q4,prefill512,opprofile_r1,1570112
+m1-1.4b-q4,prefill512,opprofile_r2,1570216
+m1-1.4b-q4,prefill512,opprofile_r3,1570364
+m1-1.4b-q4,prefill512,perf_record(incl. perf),1570580
+m1-1.4b-q4,prefill512,perf_stat,1570588
+m1-1.4b-q4,prefill4096,opprofile_r1,1573176
+m1-1.4b-q4,prefill4096,opprofile_r2,1573020
+m1-1.4b-q4,prefill4096,opprofile_r3,1573208
+m1-1.4b-q4,prefill4096,perf_record(incl. perf),1573004
+m1-1.4b-q4,prefill4096,perf_stat,1573320
+llama-1b-q4,decode,opprofile_r1,1324344
+llama-1b-q4,decode,opprofile_r2,1324216
+llama-1b-q4,decode,opprofile_r3,1324088
+llama-1b-q4,decode,perf_record(incl. perf),1324216
+llama-1b-q4,decode,perf_stat,1324344
+llama-1b-q4,prefill512,opprofile_r1,1383044
+llama-1b-q4,prefill512,opprofile_r2,1383180
+llama-1b-q4,prefill512,opprofile_r3,1383228
+llama-1b-q4,prefill512,perf_record(incl. perf),1383304
+llama-1b-q4,prefill512,perf_stat,1383364
+llama-1b-q4,prefill4096,opprofile_r1,1503288
+llama-1b-q4,prefill4096,opprofile_r2,1503520
+llama-1b-q4,prefill4096,opprofile_r3,1503620
+llama-1b-q4,prefill4096,perf_record(incl. perf),1503884
+llama-1b-q4,prefill4096,perf_stat,1503712
+llama-1b-q4,prefill8192,opprofile_r1,1638920
+llama-1b-q4,prefill8192,opprofile_r2,1639300
+llama-1b-q4,prefill8192,opprofile_r3,1639116
+llama-1b-q4,prefill8192,perf_record(incl. perf),1639024
+llama-1b-q4,prefill8192,perf_stat,1639224
+llama-1b-q4,decode_d8192,opprofile_r1,1909704
+llama-1b-q4,decode_d8192,opprofile_r2,1909668
+llama-1b-q4,decode_d8192,opprofile_r3,1909580
+llama-1b-q4,decode_d8192,perf_record(incl. perf),1909944
+llama-1b-q4,decode_d8192,perf_stat,1910096

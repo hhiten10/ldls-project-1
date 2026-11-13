@@ -1,0 +1,40 @@
+    43.42%  [.] ggml_gemm_q4_K_8x8_q8_K
+    32.19%  [.] ggml_compute_forward_flash_attn_ext_tiled(ggml_compute_params const*, ggml_tensor*, int, int)
+     8.02%  [.] 0x00000000000258a2
+     6.04%  [.] void tiled_run_microtile_avx2<16, false, 32, 1, true>(tiled_tile_src0 const&, tiled_tile_src1 const&, int, int, int, int, float*, int) [clone .constprop.0]
+     3.62%  [.] ggml_vec_soft_max_f32
+     2.59%  [.] ggml_cpu_fp16_to_fp32
+     0.82%  [.] ggml_vec_swiglu_f32
+     0.57%  [.] ggml_quantize_mat_q8_K_4x8
+     0.39%  [.] quantize_row_q8_K_ref
+     0.27%  [.] tiled_unpack_src0(block_q6_K const*, long, int, tiled_tile_src0*, int) [clone .part.0] [clone .constprop.0]
+     0.26%  [.] ggml_compute_forward_rms_norm_mul_fused
+     0.20%  [.] tiled_unpack_src1_q8_K(block_q8_K const* const*, int, tiled_tile_src1*, int, int) [clone .constprop.0]
+     0.20%  [.] ggml_compute_forward_add_non_quantized
+     0.19%  [.] void tiled_repack_src0<16>(tiled_tile_src0*, int, int, int, bool)
+     0.12%  [.] void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)
+     0.11%  [.] 0x00000000000258a6
+     0.09%  [.] 0x0000000000189804
+     0.09%  [k] 0xffffffffad201a60
+     0.08%  [.] 0x000000000018980e
+     0.06%  [.] 0x00000000000256c2
+     0.05%  [.] fmaxf32
+     0.05%  [.] ggml_vec_dot_q6_K_q8_K
+     0.04%  [.] tiled_store_window(float const*, int, int, int, float*, unsigned long) [clone .constprop.0]
+     0.04%  [.] 0x0000000000189809
+     0.04%  [.] 0x0000000000189813
+     0.04%  [.] tiled_repack_src1(tiled_tile_src1*, int, int, bool)
+     0.03%  [.] 0x0000000000188d05
+     0.02%  [.] ggml_cpu_fp32_to_fp16
+     0.02%  [.] ggml_vec_soft_max_f32@plt
+     0.02%  [.] ggml_fp16_to_fp32
+     0.01%  [.] void ggml_compute_forward_mul_mat_tiled_one_chunk<block_q6_K, 16, false, 32, true>(ggml_compute_params const*, ggml_tensor*, long, long, long, long, tiled_ws*)
+     0.01%  [.] repack_q4_K_to_q4_K_8_bl(ggml_tensor*, int, void const*, unsigned long)
+     0.01%  [.] 0x0000000000188e05
+     0.01%  [.] 0x0000000000188e74
+     0.01%  [.] dequantize_row_q6_K
+     0.01%  [.] ggml_graph_compute_thread.isra.0
+     0.01%  [.] 0x0000000000188e8a
+     0.01%  [.] 0x0000000000188e69
+     0.01%  [.] fmaxf@plt
+     0.01%  [.] ggml::cpu::repack::tensor_traits<block_q4_K, 8l, 8l, (ggml_type)15>::compute_forward(ggml_compute_params*, ggml_tensor*)

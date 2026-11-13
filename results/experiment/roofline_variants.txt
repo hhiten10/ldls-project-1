@@ -1,0 +1,6 @@
+m2-1.3b-ssm_in-q4_0                arch=mamba2  tied=False weights=   787.1 MB state= 206.3 MB/token
+m2-1.3b-ssm_in-q4_K                arch=mamba2  tied=False weights=   787.1 MB state= 206.3 MB/token
+m2-1.3b-ssm_in-q5_K                arch=mamba2  tied=False weights=   891.7 MB state= 206.3 MB/token
+m2-1.3b-ssm_in-q6_K                arch=mamba2  tied=False weights=  1002.8 MB state= 206.3 MB/token
+m2-1.3b-ssm_in-q8_0                arch=mamba2  tied=False weights=  1205.4 MB state= 206.3 MB/token
+wrote /mnt/c/Users/ADITYA SAI TEJA B/Downloads/Project-1/results/experiment/roofline_variants.csv

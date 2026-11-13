@@ -1,0 +1,40 @@
+    46.33%  [.] ggml_gemv_q4_K_8x8_q8_K
+    33.73%  [.] ggml_vec_dot_q6_K_q8_K
+    12.92%  [.] 0x00000000000258a2
+     1.29%  [.] ggml_compute_forward_flash_attn_ext
+     1.04%  [.] ggml_vec_dot_f16_f32
+     0.65%  [.] 0x00000000000256c2
+     0.53%  [.] ggml_compute_forward_mul_mat
+     0.28%  [.] quantize_row_q8_K_ref
+     0.26%  [.] repack_q4_K_to_q4_K_8_bl(ggml_tensor*, int, void const*, unsigned long)
+     0.21%  [.] 0x00000000000258a6
+     0.18%  [.] ggml_graph_compute_thread.isra.0
+     0.15%  [.] 0x0000000000188e05
+     0.15%  [k] 0xffffffffad201a60
+     0.14%  [.] 0x00000000000258af
+     0.13%  [.] ggml_threadpool_chunk_add
+     0.12%  [.] void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)
+     0.10%  [.] ggml::cpu::repack::tensor_traits<block_q4_K, 8l, 8l, (ggml_type)15>::compute_forward(ggml_compute_params*, ggml_tensor*)
+     0.09%  [.] std::_Hashtable<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::pair<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const, int>, std::allocator<std::pair<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const, int> >, std::__detail::_Select1st, std::equal_to<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, llama_vocab::impl::pair_hash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, unsigned long) const
+     0.06%  [.] 0x0000000000188d19
+     0.06%  [.] 0x00000000000259ef
+     0.06%  [.] ggml::cpu::repack::extra_buffer_type::get_tensor_traits(ggml_tensor const*)
+     0.04%  [.] ggml_compute_forward_rms_norm_mul_fused
+     0.04%  [.] ggml_vec_swiglu_f32
+     0.04%  [.] ggml_compute_forward_add_non_quantized
+     0.04%  [.] ggml_type_size
+     0.04%  [.] llama_vocab::impl::load(llama_model_loader&, LLM_KV const&)
+     0.04%  [.] ggml_compute_forward_glu
+     0.04%  [.] 0x000000000007dccd
+     0.04%  [.] 0x000000000007dca9
+     0.03%  [.] ggml_cpu_extra_compute_forward
+     0.03%  [.] GOMP_barrier
+     0.03%  [.] __tls_get_addr
+     0.03%  [.] std::__detail::_Map_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::__detail::_Select1st, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>, true>::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+     0.03%  [.] llama_vocab::~llama_vocab()
+     0.02%  [.] 0x000000000007dcc9
+     0.02%  [.] ggml_compute_forward_set_rows
+     0.02%  [.] 0x000000000007dc8a
+     0.02%  [.] 0x00000000000259e7
+     0.02%  [.] 0x000000000007dc9d
+     0.02%  [.] 0x0000000000188ce7

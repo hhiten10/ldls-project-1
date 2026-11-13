@@ -1,0 +1,8 @@
+Llama-3.2-1B-Instruct-Q4_K_M       arch=llama   tied=True  weights=   799.9 MB state=   0.0 MB/token
+Llama-3.2-1B-Q4_K_M                arch=llama   tied=True  weights=   799.9 MB state=   0.0 MB/token
+mamba-1.4b-Q4_K_M                  arch=mamba   tied=True  weights=   817.4 MB state=  29.9 MB/token
+mamba-1.4b-Q8_0                    arch=mamba   tied=True  weights=  1471.5 MB state=  29.9 MB/token
+mamba2-1.3b-Q4_K_M                 arch=mamba2  tied=False weights=   787.1 MB state= 206.3 MB/token
+mamba2-1.3b-Q8_0                   arch=mamba2  tied=False weights=  1431.7 MB state= 206.3 MB/token
+mamba2-2.7b-Q4_K_M                 arch=mamba2  tied=False weights=  1561.1 MB state= 343.8 MB/token
+wrote /mnt/c/Users/ADITYA SAI TEJA B/Downloads/Project-1/results/roofline.csv
