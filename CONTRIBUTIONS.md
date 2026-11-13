@@ -51,4 +51,3 @@ report sections and presented the slides for their part. Shared items are listed
 ## Shared
 
 * `bonus/ref/upstream_refs.py` (copied from the official Mamba repository).
-* The final review of the code, report, slides and talk script (`talk_script_new.md`).
