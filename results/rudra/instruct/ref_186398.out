@@ -1,0 +1,38 @@
+==========================================
+SLURM_CLUSTER_NAME = paramrudra
+SLURM_ARRAY_JOB_ID = 
+SLURM_ARRAY_TASK_ID = 
+SLURM_ARRAY_TASK_COUNT = 
+SLURM_ARRAY_TASK_MAX = 
+SLURM_ARRAY_TASK_MIN = 
+SLURM_JOB_ACCOUNT = nsmext
+SLURM_JOB_ID = 186398
+SLURM_JOB_NAME = p1-ref
+SLURM_JOB_NODELIST = rdcn20
+SLURM_JOB_USER = bapic_iiitd
+SLURM_JOB_UID = 56023
+SLURM_JOB_PARTITION = cpu
+SLURM_TASK_PID = 90919
+SLURM_SUBMIT_DIR = /home/bapic_iiitd/2_group/aditya/p1_rudra
+SLURM_CPUS_ON_NODE = 4
+SLURM_NTASKS = 1
+SLURM_TASK_PID = 90919
+==========================================
+node: rdcn20  allocated cpus:  0-3
+CPU(s):              48
+Socket(s):           2
+NUMA node(s):        2
+Model name:          Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz
+CPU MHz:             2400.000
+CPU max MHz:         4000.0000
+CPU min MHz:         1000.0000
+L3 cache:            36608K
+/var/share/slurm/d/job186398/slurm_script: line 21: /usr/bin/time: No such file or directory
+/var/share/slurm/d/job186398/slurm_script: line 21: /usr/bin/time: No such file or directory
+/var/share/slurm/d/job186398/slurm_script: line 21: /usr/bin/time: No such file or directory
+| model                          |       size |     params | backend    | threads |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | ------: | --------------: | -------------------: |
+| llama 1B Q4_K - Medium         | 762.81 MiB |     1.24 B | CPU        |       4 |           pp512 |        298.20 ± 0.29 |
+| llama 1B Q4_K - Medium         | 762.81 MiB |     1.24 B | CPU        |       4 |           tg128 |         40.71 ± 0.01 |
+
+build: 26d52b0 (1)

@@ -1,0 +1,7 @@
+# started on Tue Nov 10 00:51:52 2026
+
+2017353736,,cycles:u,604678080,100.00,,
+4105330056,,instructions:u,604678080,100.00,2.04,insn per cycle
+563801748,,cache-references:u,604678080,100.00,,
+103273488,,cache-misses:u,604678080,100.00,18.32,of all cache refs
+317022883,,L1-dcache-load-misses,604678080,100.00,,

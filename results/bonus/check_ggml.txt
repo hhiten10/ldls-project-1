@@ -1,0 +1,4 @@
+check,m2_avx2_vs_ggml_ssm_scan,1000 steps,worst_relL2=4.86e-06,PASS
+check,m3_custom_op_vs_direct_kernel,1000 steps,max_abs_diff=0.00e+00,BIT-EXACT
+check,m2_avx2_vs_ggml_ssm_scan,1000 steps,worst_relL2=4.86e-06,PASS
+check,m3_custom_op_vs_direct_kernel,1000 steps,max_abs_diff=0.00e+00,BIT-EXACT

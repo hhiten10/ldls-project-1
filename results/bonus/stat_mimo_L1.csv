@@ -1,0 +1,7 @@
+# started on Tue Nov 10 00:51:48 2026
+
+16370838888,,cycles:u,4268545138,100.00,,
+31278649203,,instructions:u,4268545138,100.00,1.91,insn per cycle
+999968167,,cache-references:u,4268545138,100.00,,
+74617954,,cache-misses:u,4268545138,100.00,7.46,of all cache refs
+580209536,,L1-dcache-load-misses,4268545138,100.00,,

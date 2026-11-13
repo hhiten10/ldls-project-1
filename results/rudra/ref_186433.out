@@ -1,0 +1,45 @@
+==========================================
+SLURM_CLUSTER_NAME = paramrudra
+SLURM_ARRAY_JOB_ID = 
+SLURM_ARRAY_TASK_ID = 
+SLURM_ARRAY_TASK_COUNT = 
+SLURM_ARRAY_TASK_MAX = 
+SLURM_ARRAY_TASK_MIN = 
+SLURM_JOB_ACCOUNT = nsmext
+SLURM_JOB_ID = 186433
+SLURM_JOB_NAME = p1-ref
+SLURM_JOB_NODELIST = rdcn20
+SLURM_JOB_USER = bapic_iiitd
+SLURM_JOB_UID = 56023
+SLURM_JOB_PARTITION = cpu
+SLURM_TASK_PID = 103053
+SLURM_SUBMIT_DIR = /home/bapic_iiitd/2_group/aditya/p1_rudra
+SLURM_CPUS_ON_NODE = 4
+SLURM_NTASKS = 1
+SLURM_TASK_PID = 103053
+==========================================
+node: rdcn20  allocated cpus:  0-3
+CPU(s):              48
+Socket(s):           2
+NUMA node(s):        2
+Model name:          Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz
+CPU MHz:             2400.000
+CPU max MHz:         4000.0000
+CPU min MHz:         1000.0000
+L3 cache:            36608K
+model: models/Llama-3.2-1B-Q4_K_M.gguf  sha256: f3edd8b6fe820f6156a57a492dd02d63677a173ebedceb3b23f96cd8801031f3
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 4, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 512, "n_gen": 0, "n_depth": 0, "test_time": "2026-11-10T08:05:04Z", "avg_ns": 1759735947, "stddev_ns": 2051612, "avg_ts": 290.953006, "stddev_ts": 0.339321, "samples_ns": [ 1757424270, 1761338402, 1760445170 ],"samples_ts": [ 291.335, 290.688, 290.836 ]}
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 4, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 0, "n_gen": 128, "n_depth": 0, "test_time": "2026-11-10T08:05:11Z", "avg_ns": 3315717627, "stddev_ns": 910477, "avg_ts": 38.604013, "stddev_ts": 0.010580, "samples_ns": [ 3315776385, 3316595477, 3314781020 ],"samples_ts": [ 38.6033, 38.5938, 38.6149 ]}
+peak_rss_kb=1384180
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 2, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 512, "n_gen": 0, "n_depth": 0, "test_time": "2026-11-10T08:05:22Z", "avg_ns": 3346396457, "stddev_ns": 10887260, "avg_ts": 153.001479, "stddev_ts": 0.496843, "samples_ns": [ 3339767005, 3358961419, 3340460948 ],"samples_ts": [ 153.304, 152.428, 153.272 ]}
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 2, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 0, "n_gen": 128, "n_depth": 0, "test_time": "2026-11-10T08:05:35Z", "avg_ns": 5763167618, "stddev_ns": 18244223, "avg_ts": 22.210156, "stddev_ts": 0.070189, "samples_ns": [ 5784104497, 5754720812, 5750677545 ],"samples_ts": [ 22.1296, 22.2426, 22.2582 ]}
+peak_rss_kb=1383116
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 1, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 512, "n_gen": 0, "n_depth": 0, "test_time": "2026-11-10T08:05:53Z", "avg_ns": 6486470945, "stddev_ns": 1655470, "avg_ts": 78.933526, "stddev_ts": 0.020095, "samples_ns": [ 6485679565, 6485364006, 6488369266 ],"samples_ts": [ 78.9432, 78.947, 78.9104 ]}
+{"build_commit": "26d52b0", "build_number": 1, "cpu_info": "Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz", "gpu_info": "", "backends": "CPU", "model_filename": "models/Llama-3.2-1B-Q4_K_M.gguf", "model_type": "llama 1B Q4_K - Medium", "model_size": 799862912, "model_n_params": 1235814432, "n_batch": 2048, "n_ubatch": 512, "n_threads": 1, "cpu_mask": "0x0", "cpu_strict": false, "poll": 50, "type_k": "f16", "type_v": "f16", "n_gpu_layers": -1, "n_cpu_moe": 0, "split_mode": "layer", "main_gpu": 0, "no_kv_offload": false, "flash_attn": -1, "devices": "auto", "tensor_split": "0.00", "tensor_buft_overrides": "none", "load_mode": "auto", "lazy_mode": "auto", "embeddings": false, "no_op_offload": 0, "no_host": false, "repack": true, "fit_target": 0, "fit_min_ctx": 0, "n_prompt": 0, "n_gen": 128, "n_depth": 0, "test_time": "2026-11-10T08:06:19Z", "avg_ns": 10533844196, "stddev_ns": 5639122, "avg_ts": 12.151312, "stddev_ts": 0.006502, "samples_ns": [ 10540255619, 10531617982, 10529658988 ],"samples_ts": [ 12.1439, 12.1539, 12.1561 ]}
+peak_rss_kb=1382836
+| model                          |       size |     params | backend    | threads |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | ------: | --------------: | -------------------: |
+| llama 1B Q4_K - Medium         | 762.81 MiB |     1.24 B | CPU        |       4 |           pp512 |        298.52 ± 0.55 |
+| llama 1B Q4_K - Medium         | 762.81 MiB |     1.24 B | CPU        |       4 |           tg128 |         39.27 ± 0.02 |
+
+build: 26d52b0 (1)
